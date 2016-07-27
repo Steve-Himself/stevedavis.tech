@@ -3,5 +3,10 @@
  */
 export default {
   baseUrl: '/',
-  github: 'https://github.com/stevehimself'
+  github: 'https://github.com/stevehimself',
+  terminal: {
+    user: 'stevehimself',
+    userPathSeparator: '/',
+    promptEnd: '$'
+  }
 };

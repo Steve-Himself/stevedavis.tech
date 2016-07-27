@@ -40,6 +40,10 @@
 }
 
 .terminal-cursor {
+    visibility:hidden;
+}
+
+.terminal-cursor.active {
       margin-left: -5px;
       visibility:visible;
   width: 10px;
@@ -106,9 +110,6 @@
   }
 }
 
-.terminal-cursor-hidden{
-    visibility:hidden;
-}
 .terminal-input{
     white-space:pre-wrap;
     overflow-wrap:break-word;

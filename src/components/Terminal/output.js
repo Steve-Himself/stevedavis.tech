@@ -1,6 +1,6 @@
-import React from 'react'
-import { OUTPUT } from '../../constants/AppConstants';
-import OutputStore from '../../stores';
+import React from 'react';
+import OUTPUT from '../../constants/AppConstants';
+import OutputStore from '../../stores/OutputStore';
 
 const _getState = () => ({ output: OutputStore.getOutput() });
 
@@ -24,6 +24,6 @@ export default class Output extends React.Component {
   }
 
   render() {
-    return <div class='terminal-results'>{ this.state.output }</div>
+    return <div className='terminal-results'>{ this.state.output }</div>
   }
 }

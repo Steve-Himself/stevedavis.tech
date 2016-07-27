@@ -1,14 +1,11 @@
 import React from 'react';
-import render from 'react-dom';
-import { RouteHandler } from 'react-router';
-import Terminal from './Terminal';
+import Terminal from './Terminal/terminal.js';
 import logo from '../logo.svg'
 
 // import Header from './Header.jsx';
 // import Footer from './Footer.jsx';
 
-export default React.createClass({
-
+export default class Layout extends React.Component {
   /**
    * Renders the layout
    * @return {ReactElement}
@@ -20,8 +17,8 @@ export default React.createClass({
           <img src={logo} className="App-logo" alt="logo" />
         </div>
         <Terminal />
-        {this.props.children}
+        { this.props.children }
       </div>
     );
   }
-});
+}

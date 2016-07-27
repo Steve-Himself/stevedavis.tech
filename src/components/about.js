@@ -2,7 +2,9 @@ import React from 'react';
 import { Link } from 'react-router';
 
 export default class About extends React.Component {
-
+  constructor(props) {
+    super(props);
+  }
   /**
    * Renders the about screen.
    * @return {ReactElement}
@@ -11,7 +13,7 @@ export default class About extends React.Component {
     return (
       <div>
         <div>
-          <Link to="home">Home</Link>
+          <Link to="/">Home</Link>
         </div>
       </div>
     );

@@ -12,7 +12,7 @@ export default class Contact extends React.Component {
     return (
       <div>
         <div>
-          <Link to="home">Home</Link>
+          <Link to="/">Home</Link>
         </div>
         <div>
           You can find me on <a href={config.github}>github</a>.

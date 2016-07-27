@@ -1,8 +1,8 @@
-import React from 'react'
+import React from 'react';
 
 class Output extends React.Component {
   render() {
-    return <input type='text' class='terminal-target' />
+    return <input type='text' className='terminal-target' />
   }
 }
 

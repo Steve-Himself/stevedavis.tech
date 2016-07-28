@@ -10,16 +10,6 @@ let _commandHistory = [];
 let _commandIndex = -1;
 let _command = '';
 
-function appendCommand(text) {
-    _command = _command.push(text);
-
-    AppDispatcher.dispatch({ type: AppConstants.COMMAND.CHANGED_EVENT, payload: {text: ''} });
-}
-
-function setCommand(text) {
-  this._command = text;
-}
-
 /**
  * Creating the store with ES6 class syntax. JSDoc doesn't support ES6 classes
  * yet. See: {@link https://github.com/jsdoc3/jsdoc/issues/819}
@@ -37,6 +27,15 @@ class CommandStore extends EventEmitter {
     this._dispatchToken = AppDispatcher.register(this._registerCallback.bind(this));
   }
 
+  appendCommand(text) {
+    _commandHistory = _commandHistory.push(text);
+  }
+
+  setCommand(text) {
+    this._command = text;
+    this.emit(AppConstants.COMMAND.CHANGED_EVENT);
+  }
+
   /**
    * Registers a callback which will be called upon dispatch made
    * by the dispatcher
@@ -48,15 +47,15 @@ class CommandStore extends EventEmitter {
     switch (event.type) {
 
       case AppConstants.COMMAND.CHANGED_EVENT:
-        setCommand(event.payload.text);
+        this.setCommand(event.payload.text);
         break;
 
-      case AppConstants.COMMAND.PROCESS_COMMAND:
-        appendCommand(event.payload.text);
+      case AppConstants.COMMAND.SUBMIT_COMMAND:
+        this.appendCommand(event.payload.text);
         break;
 
       default:
-        // do nothing
+      // do nothing
     }
   }
 

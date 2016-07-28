@@ -43,7 +43,7 @@
     visibility:hidden;
 }
 
-.terminal-cursor.active {
+.terminal.active .terminal-cursor {
       margin-left: -5px;
       visibility:visible;
   width: 10px;

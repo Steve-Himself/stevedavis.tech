@@ -1,5 +1,6 @@
 const COMMAND = {
     CHANGED_EVENT: 'commandchanged',
+    SUBMIT_COMMAND: 'submitscommand',
     PROCESS_COMMAND: 'processcommand'
 }
 

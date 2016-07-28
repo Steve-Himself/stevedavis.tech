@@ -9,11 +9,6 @@ import config from '../appConfig.js';
  */
 let _output = config.terminal.initialOutput || [];
 
-function appendOutput(text) {
-    _output = _output.push(text);
-    this.emit(AppConstants.OUTPUT.OUTPUT_CHANGED_EVENT);
-}
-
 /**
  * Creating the store with ES6 class syntax. JSDoc doesn't support ES6 classes
  * yet. See: {@link https://github.com/jsdoc3/jsdoc/issues/819}
@@ -31,6 +26,11 @@ class OutputStore extends EventEmitter {
     this._dispatchToken = AppDispatcher.register(this._registerCallback.bind(this));
   }
 
+  appendOutput(lines) {
+      _output = _output.concat(lines);
+      this.emit(AppConstants.OUTPUT.OUTPUT_CHANGED_EVENT);
+  }
+
   /**
    * Registers a callback which will be called upon dispatch made
    * by the dispatcher
@@ -42,7 +42,7 @@ class OutputStore extends EventEmitter {
     switch (event.type) {
 
       case AppConstants.OUTPUT.APPEND:
-        appendOutput(event.payload.text);
+        this.appendOutput(event.payload.lines);
         break;
 
       default:

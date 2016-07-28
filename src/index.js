@@ -5,6 +5,8 @@ import Contact from './components/contact.js';
 import React from 'react';
 import { render } from 'react-dom';
 import { Router, browserHistory, Route, IndexRoute, DefaultRoute, Link } from 'react-router';
+import AppDispatcher from './dispatcher/AppDispatcher';
+import AppConstants from './constants/AppConstants'
 import config from './appConfig.js';
 import './index.css';
 
@@ -28,7 +30,11 @@ class PageNotFound extends React.Component {
  * Rendering the app to the site's body. Using react-router here.
  */
 render((
-  <Router history={ browserHistory }>
+  <Router history={ browserHistory } onUpdate={
+    function () {
+      AppDispatcher.dispatch({ type: AppConstants.ROUTE.CHANGE, payload: this.state });
+    }
+  }>
     <Route path={config.baseUrl} component={ Layout } >
       <Route name="home" component={ Home } />
       <Route name="about" path="about" component={ About } />

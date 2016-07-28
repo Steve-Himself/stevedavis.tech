@@ -1,6 +1,6 @@
 import EventEmitter from 'events';
 import AppDispatcher from '../dispatcher/AppDispatcher';
-import COMMAND from '../constants/AppConstants';
+import AppConstants from '../constants/AppConstants';
 
 /**
  * @type {Map}
@@ -13,7 +13,7 @@ let _command = '';
 function appendCommand(text) {
     _command = _command.push(text);
 
-    AppDispatcher.dispatch({ type: COMMAND.CHANGED_EVENT, payload: {text: ''} });
+    AppDispatcher.dispatch({ type: AppConstants.COMMAND.CHANGED_EVENT, payload: {text: ''} });
 }
 
 function setCommand(text) {
@@ -44,16 +44,15 @@ class CommandStore extends EventEmitter {
    * @member CommandStore#_registerCallback
    * @private
    */
-  _registerCallback(payload) {
-      var action = payload.action;
-    switch (action.actionType) {
+  _registerCallback(event) {
+    switch (event.type) {
 
-      case COMMAND.CHANGED_EVENT:
-        setCommand(payload.action.text);
+      case AppConstants.COMMAND.CHANGED_EVENT:
+        setCommand(event.payload.text);
         break;
 
-      case COMMAND.PROCESS_COMMAND:
-        appendCommand(payload.action.text);
+      case AppConstants.COMMAND.PROCESS_COMMAND:
+        appendCommand(event.payload.text);
         break;
 
       default:

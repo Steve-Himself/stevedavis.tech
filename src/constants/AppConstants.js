@@ -8,4 +8,9 @@ const OUTPUT = {
     CHANGED_EVENT: 'outputchanged'
 };
 
-export default { COMMAND, OUTPUT };
+const ROUTE = {
+    CHANGE: 'changeroute',
+    CHANGED_EVENT: 'routechanged'
+};
+
+export default { COMMAND, OUTPUT, ROUTE };

@@ -24,6 +24,9 @@ export default class Output extends React.Component {
   }
 
   render() {
-    return <div className='terminal-results'>{ this.state.output }</div>
+    var lines = this.state.output.map(function(line) {
+      return <pre className="terminal-line">{line}</pre>
+    })
+    return <div className='terminal-results'>{lines}</div>
   }
 }

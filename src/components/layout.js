@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router';
 import Terminal from './Terminal/terminal.js';
 import logo from '../logo.svg'
 
@@ -15,6 +16,9 @@ export default class Layout extends React.Component {
       <div className="App">
         <div className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
+          <Link to="/">Home</Link>
+          <Link to="/about">About</Link>
+          <Link to="/contact">Contact</Link>
         </div>
         <Terminal />
         { this.props.children }

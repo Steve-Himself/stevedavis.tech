@@ -1,48 +1,46 @@
 import EventEmitter from 'events';
 import AppDispatcher from '../dispatcher/AppDispatcher';
 import AppConstants from '../constants/AppConstants';
-import config from '../appConfig.js';
 
 /**
  * @type {Map}
  * @private
  */
-let _output = config.terminal.initialOutput || [];
-
-function appendOutput(text) {
-    _output = _output.push(text);
-    this.emit(AppConstants.OUTPUT.OUTPUT_CHANGED_EVENT);
-}
+let _route = { location: { pathname: '/' } };
 
 /**
  * Creating the store with ES6 class syntax. JSDoc doesn't support ES6 classes
  * yet. See: {@link https://github.com/jsdoc3/jsdoc/issues/819}
- * @class OutputStore
+ * @class RouteStore
  */
-class OutputStore extends EventEmitter {
+class RouteStore extends EventEmitter {
 
   /**
    * Initialize the store by registering it to the Dispatcher
-   * @constructs OutputStore
+   * @constructs RouteStore
    */
   constructor() {
       super();
-    /** @member OutputStore#_dispatchToken */
+    /** @member RouteStore#_dispatchToken */
     this._dispatchToken = AppDispatcher.register(this._registerCallback.bind(this));
+  }
+
+  changeRoute(value) {
+      _route = value;
+      this.emit(AppConstants.ROUTE.CHANGED_EVENT);
   }
 
   /**
    * Registers a callback which will be called upon dispatch made
    * by the dispatcher
    * @param {Object} action
-   * @member OutputStore#_registerCallback
+   * @member RouteStore#_registerCallback
    * @private
    */
   _registerCallback(event) {
     switch (event.type) {
-
-      case AppConstants.OUTPUT.APPEND:
-        appendOutput(event.payload.text);
+      case AppConstants.ROUTE.CHANGE:
+        this.changeRoute(event.payload);
         break;
 
       default:
@@ -51,14 +49,14 @@ class OutputStore extends EventEmitter {
   }
 
   /**
-   * Gets the actual state (~output)
-   * @member OutputStore#getOutput
-   * @return {Map} _output
+   * Gets the actual state (~route)
+   * @member RouteStore#getRoute
+   * @return {Map} _route
    */
-  getOutput() {
-    return _output;
+  getRoute() {
+    return _route;
   }
 
 }
 
-export default new OutputStore();
+export default new RouteStore();

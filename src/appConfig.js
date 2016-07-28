@@ -6,7 +6,7 @@ export default {
   github: 'https://github.com/stevehimself',
   terminal: {
     user: 'stevehimself',
-    userPathSeparator: '/',
-    promptEnd: '$'
+    promptEnd: ' $',
+    initialOutput: ['Welcome']
   }
 };

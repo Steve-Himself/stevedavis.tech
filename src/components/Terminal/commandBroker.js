@@ -69,7 +69,6 @@ var _redirectors = [];
 class CommandBroker extends EventEmitter {
     constructor() {
         super();
-        console.log('foo');
         this._dispatchToken = AppDispatcher.register(this._registerCallback.bind(this));
     }
 

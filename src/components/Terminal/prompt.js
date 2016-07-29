@@ -32,11 +32,7 @@ export default class Prompt extends React.Component {
   }
 
   render() {
-    return <div>   
-      <span className='terminal-input'>{config.terminal.user + this.state.route.location.pathname + config.terminal.promptEnd} {this.state.commandLine}</span>
-      <span className='terminal-cursor'>&nbsp;</span>
-      <input type='text' className='terminal-target' />
-    </div>
+    return 
   
   }
 }

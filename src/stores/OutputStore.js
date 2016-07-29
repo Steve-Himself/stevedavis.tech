@@ -28,7 +28,7 @@ class OutputStore extends EventEmitter {
 
   appendOutput(lines) {
       _output = _output.concat(lines);
-      this.emit(AppConstants.OUTPUT.OUTPUT_CHANGED_EVENT);
+      this.emit(AppConstants.OUTPUT.CHANGED_EVENT);
   }
 
   /**

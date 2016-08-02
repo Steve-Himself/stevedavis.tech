@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import keydown from 'react-keydown';
+import keydown, { keydownScoped, Keys } from 'react-keydown';
 
 import AppConstants from '../../constants/AppConstants';
 import AppDispatcher from '../../dispatcher/AppDispatcher';
@@ -23,15 +23,16 @@ var _commandLine = '';
 var showPrompt = true;
 var allowTypingWriteDisplaying = true;
 
+@keydown
 class Terminal extends React.Component {
   constructor() {
     super();
     this.state = _getState();
-    this.handleConsoleViewClick = this.handleConsoleViewClick.bind(this);
-    this.previousCommand = this.previousCommand.bind(this);
-    this.nextCommand = this.nextCommand.bind(this);
-    this.backspace = this.backspace.bind(this);
-    this.handleKeydown = this.handleKeydown.bind(this);
+    //this.handleConsoleViewClick = this.handleConsoleViewClick.bind(this);
+    // this.previousCommand = this.previousCommand.bind(this);
+    // this.nextCommand = this.nextCommand.bind(this);
+    // this.backspace = this.backspace.bind(this);
+    // this.handleKeydown = this.handleKeydown.bind(this);
   }
 
   componentDidMount() {
@@ -83,7 +84,7 @@ class Terminal extends React.Component {
     _commandLine = '';
   }
 
-  @keydown('up')
+  @keydownScoped('up')
   previousCommand() {
     if (_commandIndex == -1) {
       _commandIndex = _commandHistory.length;
@@ -95,7 +96,7 @@ class Terminal extends React.Component {
     _commandLine = _commandHistory[--_commandIndex];
   }
 
-  @keydown('down')
+  @keydownScoped('down')
   nextCommand() {
     if (_commandIndex == -1) {
       return;
@@ -109,23 +110,35 @@ class Terminal extends React.Component {
     }
   }
 
-  @keydown('backspace')
+  @keydownScoped('backspace')
   backspace() {
     if (_commandLine) {
       _commandLine = _commandLine.substring(0, _commandLine.length - 1);
     }
   }
 
-  @keydown()
-  handleKeypress(e) {
-    var key = e.key;
-    if (showPrompt || allowTypingWriteDisplaying)
-      if (_commandLine.length < 80) {
-        _commandIndex = -1;
-        _commandLine += key;
-      }
-    e.preventDefault();
+  componentWillReceiveProps({ keydown }) {
+    if (keydown.event) {
+      // inspect the keydown event and decide what to do
+      console.log(keydown.event.key);
+      var key = keydown.event.key;
+      if (showPrompt || allowTypingWriteDisplaying)
+        if (_commandLine.length < 80) {
+          _commandIndex = -1;
+          _commandLine += key;
+        }
+    }
   }
+  // @keydown
+  // handleKeypress(e) {
+  //   var key = e.key;
+  //   if (showPrompt || allowTypingWriteDisplaying)
+  //     if (_commandLine.length < 80) {
+  //       _commandIndex = -1;
+  //       _commandLine += key;
+  //     }
+  //   e.preventDefault();
+  // }
 
   // handleKeydown(e) {
   //   console.log(e.keyCode);
